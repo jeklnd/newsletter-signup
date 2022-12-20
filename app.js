@@ -6,7 +6,10 @@ const mailchimp = require("@mailchimp/mailchimp_marketing");
 const { response } = require("express");
 
 const app = express();
-const port = 3000;
+let port = process.env.PORT;
+if (port == null || port == "") {
+    port = 3000;
+}
 
 require("dotenv").config();
 const apiKey = process.env.API_KEY;
@@ -73,6 +76,6 @@ app.post("/failure", (req, res) => {
     res.redirect("/")
 });
 
-app.listen(port || process.env.PORT, () => {
+app.listen(port, () => {
     console.log(`Server is running on port ${port}.`);
 })
